@@ -2,163 +2,83 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Formulario de Alta de Hospedaje</title>
+    <title>Idioma Dinámico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        select, input, button {
+            padding: 5px 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .form-group {
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Formulario de Alta de Hospedaje</h1>
-    <form action="/enviar" method="POST">
-        <h2>Datos de Solicitud</h2>
-        <label>Código Establecimiento:
-            <input type="text" name="codigoEstablecimiento" required>
-        </label><br><br>
 
-        <h2>Datos de Contrato</h2>
-        <label>Referencia:
-            <input type="text" name="referencia" required>
-        </label><br><br>
-        <label>Fecha Contrato:
-            <input type="datetime-local" name="fechaContrato" required>
-        </label><br><br>
-        <label>Fecha Entrada:
-            <input type="datetime-local" name="fechaEntrada" required>
-        </label><br><br>
-        <label>Fecha Salida:
-            <input type="datetime-local" name="fechaSalida" required>
-        </label><br><br>
-        <label>Número de Personas:
-            <input type="number" name="numPersonas" min="1" required>
-        </label><br><br>
-        <label>Número de Habitaciones:
-            <input type="number" name="numHabitaciones" min="1" required>
-        </label><br><br>
-        <label>Internet:
-            <select name="internet" required>
-                <option value="true">Sí</option>
-                <option value="false">No</option>
-            </select>
-        </label><br><br>
+    <h1 id="title">Hola, bienvenido a mi sitio web!</h1>
+    <p id="description">Selecciona tu idioma en el menú desplegable.</p>
 
-        <h3>Datos de Pago</h3>
-        <label>Tipo de Pago:
-            <select name="tipoPago" required>
-                <option value="DESTI">DESTI</option>
-                <option value="EFECT">EFECT</option>
-                <option value="TARJT">TARJT</option>
-                <option value="PLATF">PLATF</option>
-                <option value="TRANS">TRANS</option>
-                <option value="MOVIL">MOVIL</option>
-                <option value="TREG">TREG</option>
-                <option value="OTRO">OTRO</option>
+    <form onsubmit="submitForm(event)">
+        <div class="form-group">
+            <label for="languageSelector" id="languageLabel">Idioma:</label>
+            <select id="languageSelector" onchange="changeLanguage()">
+                <option value="es">Español</option>
+                <option value="en">English</option>
             </select>
-        </label><br><br>
-        <label>Fecha de Pago:
-            <input type="datetime-local" name="fechaPago" required>
-        </label><br><br>
-        <label>Medio de Pago:
-            <input type="text" name="medioPago" required>
-        </label><br><br>
-        <label>Titular:
-            <input type="text" name="titular" required>
-        </label><br><br>
-        <label>Caducidad Tarjeta (MM/AAAA):
-            <input type="text" name="caducidadTarjeta" placeholder="MM/AAAA" pattern="(0[1-9]|1[0-2])/20[2-9][0-9]" required>
-        </label><br><br>
+        </div>
 
-        <h2>Datos de Persona</h2>
-        <label>Rol:
-            <select name="rol" required>
-                <option value="VI">Viajero</option>
-            </select>
-        </label><br><br>
-        <label>Nombre:
-            <input type="text" name="nombre" required>
-        </label><br><br>
-        <label>Apellido 1:
-            <input type="text" name="apellido1" required>
-        </label><br><br>
-        <label>Apellido 2:
-            <input type="text" name="apellido2">
-        </label><br><br>
-        <label>Tipo Documento:
-            <select name="tipoDocumento" required>
-                <option value="NIF">NIF</option>
-                <option value="NIE">NIE</option>
-                <option value="PAS">PAS</option>
-                <option value="OTRO">OTRO</option>
-                <option value="CIF">CIF</option>
-            </select>
-        </label><br><br>
-        <label>Número de Documento:
-            <input type="text" name="numeroDocumento" required>
-        </label><br><br>
-        <label>Soporte Documento:
-            <input type="text" name="soporteDocumento">
-        </label><br><br>
-        <label>Fecha de Nacimiento:
-            <input type="date" name="fechaNacimiento" required>
-        </label><br><br>
-        <label>Nacionalidad:
-            <input type="text" name="nacionalidad" value="ESP" required>
-        </label><br><br>
-        <label>Sexo:
-            <select name="sexo" required>
-                <option value="H">Hombre</option>
-                <option value="M">Mujer</option>
-                <option value="O">Otro</option>
-            </select>
-        </label><br><br>
+        <div class="form-group">
+            <label for="peopleInput" id="peopleLabel">Número de personas:</label>
+            <input type="number" id="peopleInput" min="1" value="1">
+        </div>
 
-        <h3>Dirección</h3>
-        <label>Dirección:
-            <input type="text" name="direccion" required>
-        </label><br><br>
-        <label>Dirección Complementaria:
-            <input type="text" name="direccionComplementaria">
-        </label><br><br>
-        <label>Código Municipio:
-            <input type="text" name="codigoMunicipio" pattern="\d{5}">
-        </label><br><br>
-        <label>Nombre Municipio:
-            <input type="text" name="nombreMunicipio">
-        </label><br><br>
-        <label>Código Postal:
-            <input type="text" name="codigoPostal" pattern="\d{5}" required>
-        </label><br><br>
-        <label>País:
-            <input type="text" name="pais" value="ESP" required>
-        </label><br><br>
-
-        <h3>Contacto</h3>
-        <label>Teléfono:
-            <input type="tel" name="telefono" pattern="[0-9]{9}" required>
-        </label><br><br>
-        <label>Teléfono 2:
-            <input type="tel" name="telefono2" pattern="[0-9]{9}">
-        </label><br><br>
-        <label>Correo Electrónico:
-            <input type="email" name="correo" required>
-        </label><br><br>
-        <label>Parentesco:
-            <select name="parentesco" required>
-                <option value="AB">AB</option>
-                <option value="BA">BA</option>
-                <option value="BN">BN</option>
-                <option value="CY">CY</option>
-                <option value="CD">CD</option>
-                <option value="HR">HR</option>
-                <option value="HJ">HJ</option>
-                <option value="PM">PM</option>
-                <option value="NI">NI</option>
-                <option value="SB">SB</option>
-                <option value="SG">SG</option>
-                <option value="TI">TI</option>
-                <option value="YN">YN</option>
-                <option value="TU">TU</option>
-                <option value="OT">OT</option>
-            </select>
-        </label><br><br>
-
-        <button type="submit">Enviar</button>
+        <button type="submit" id="submitButton">Enviar</button>
     </form>
+
+    <p id="resultMessage"></p>
+
+    <script>
+        const texts = {
+            es: {
+                title: "Hola, bienvenido a mi sitio web!",
+                description: "Selecciona tu idioma en el menú desplegable.",
+                languageLabel: "Idioma:",
+                peopleLabel: "Número de personas:",
+                submitButton: "Enviar",
+                resultMessage: (num) => `Has enviado ${num} persona(s).`
+            },
+            en: {
+                title: "Hello, welcome to my website!",
+                description: "Select your language from the dropdown menu.",
+                languageLabel: "Language:",
+                peopleLabel: "Number of people:",
+                submitButton: "Submit",
+                resultMessage: (num) => `You have submitted ${num} person(s).`
+            }
+        };
+
+        function changeLanguage() {
+            const lang = document.getElementById("languageSelector").value;
+            document.getElementById("title").textContent = texts[lang].title;
+            document.getElementById("description").textContent = texts[lang].description;
+            document.getElementById("languageLabel").textContent = texts[lang].languageLabel;
+            document.getElementById("peopleLabel").textContent = texts[lang].peopleLabel;
+            document.getElementById("submitButton").textContent = texts[lang].submitButton;
+        }
+
+        function submitForm(event) {
+            event.preventDefault();  // Evita que recargue la página
+            const lang = document.getElementById("languageSelector").value;
+            const numPeople = document.getElementById("peopleInput").value;
+            document.getElementById("resultMessage").textContent = texts[lang].resultMessage(numPeople);
+        }
+    </script>
+
 </body>
 </html>
